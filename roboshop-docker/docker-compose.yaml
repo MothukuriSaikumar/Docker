@@ -1,4 +1,10 @@
 services:
+  catalogue:
+    image: catalogue:v1
+    container_name: catalogue
+    depends_on:
+    - mongodb
+    
   mongodb:
     image: mongodb:v1
     container_name: mongodb
@@ -6,4 +12,65 @@ services:
       - "27017:27017"
     volumes:
       - mongodata:/data/db
-     
+  redis:
+    image: redis:7.0
+    container_name: redis
+  
+  rabbitmq:
+    image: rabbitmq:3
+    container_name: rabbitmq
+    ports:
+    - "5672:5672"
+    - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: roboshop
+      RABBITMQ_DEFAULT_PASS: roboshop123
+  
+  mysql:
+    image: mysql:v1
+    container_name: mysql
+    
+  
+  user:
+    image: user:v1
+    container_name: user
+    depends_on:
+    - mongodb
+    - redis
+  cart:
+    image: cart:v1
+    container_name: cart
+    depends_on:
+    - catalogue
+    - redis
+  shipping:
+    image: shipping:v1
+    container_name: shipping
+    depends_on:
+    - mysql
+    - cart
+
+  payment:
+    image: payment:v1
+    container_name: payment
+    depends_on:
+    - user
+    - cart
+    - rabbitmq
+    
+  frontend:
+  - image: frontend:v1
+  - container_name: frontend
+  - ports:
+    - "80:80"
+  depends_on:
+    - user
+    - catalogue
+    - cart
+    - shipping
+    - payment
+networks:
+  default:
+    name: roboshop
+    driver: bridge
+    external: false
