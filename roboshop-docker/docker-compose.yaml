@@ -42,12 +42,18 @@ services:
     
   
   user:
+    build:
+      context: ./user
+      dockerfile: Dockerfile
     image: user:v1
     container_name: user
     depends_on:
     - mongodb
     - redis
   cart:
+    build:
+      context: ./cart
+      dockerfile: Dockerfile
     image: cart:v1
     container_name: cart
     depends_on:
