@@ -13,27 +13,23 @@ services:
       context: ./mongodb
     image: mongodb:v1
     container_name: mongodb
-    ports:
-      - "27017:27017"
     volumes:
       - mongodb:/data/db
   redis:
     image: redis:7.0
     container_name: redis
     volumes:
-      - redis:/data 
+    - redis:/data 
   
   rabbitmq:
     image: rabbitmq:3
     container_name: rabbitmq
-    ports:
-    - "5672:5672"
-    - "15672:15672"
+    
     environment:
       RABBITMQ_DEFAULT_USER: roboshop
       RABBITMQ_DEFAULT_PASS: roboshop123
     volumes:
-      - rabbitmq:/var/lib/rabbitmq
+    - rabbitmq:/var/lib/rabbitmq
   
   mysql:
     build:
@@ -83,10 +79,9 @@ services:
       
     image: frontend:v1
     container_name: frontend
-    
-  ports:
+    ports:
     - "80:80"
-  depends_on:
+    depends_on:
     - user
     - catalogue
     - cart
