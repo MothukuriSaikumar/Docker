@@ -1,0 +1,106 @@
+services:
+  catalogue:
+    build:
+      context: ./catalogue
+      dockerfile: Dockerfile
+    image: saikumar19/catalogue:v1
+    container_name: catalogue
+    depends_on:
+    - mongodb
+    
+  mongodb:
+    build:
+      context: ./mongodb
+    image: saikumar19/mongodb:v1
+    container_name: mongodb
+    volumes:
+      - mongodb:/data/db
+  redis:
+    image: redis:7.0
+    container_name: redis
+    volumes:
+    - redis:/data 
+  
+  rabbitmq:
+    image: rabbitmq:3
+    container_name: rabbitmq
+    
+    environment:
+      RABBITMQ_DEFAULT_USER: roboshop
+      RABBITMQ_DEFAULT_PASS: roboshop123
+    volumes:
+    - rabbitmq:/var/lib/rabbitmq
+  
+  mysql:
+    build:
+      context: ./mysql
+      
+    image: saikumar19/mysql:v1
+    container_name: mysql
+    volumes:
+      - mysql:/var/lib/mysql
+    
+  
+  user:
+    build:
+      context: ./user
+      dockerfile: Dockerfile
+    image: saikumar19/user:v1
+    container_name: user
+    depends_on:
+    - mongodb
+    - redis
+  cart:
+    build:
+      context: ./cart
+      dockerfile: Dockerfile
+    image: saikumar19/cart:v1
+    container_name: cart
+    depends_on:
+    - catalogue
+    - redis
+  shipping:
+    build:
+      context: ./shipping
+    image: saikumar19/shipping:v1
+    container_name: shipping
+    depends_on:
+    - mysql
+    - cart
+
+  payment:
+    build:
+      context: ./payment
+      
+    image: saikumar19/payment:v1
+    container_name: payment
+    depends_on:
+    - user
+    - cart
+    - rabbitmq
+    
+  frontend:
+    build:
+      context: ./frontend
+      
+    image: saikumar19/frontend:v1
+    container_name: frontend
+    ports:
+    - "80:80"
+    depends_on:
+    - user
+    - catalogue
+    - cart
+    - shipping
+    - payment
+networks:
+  default:
+    name: roboshop
+    driver: bridge
+    external: false # true if network is created manually using docker network create command 
+
+volumes:
+  mongodb:
+  mysql:
+  redis:
+  rabbitmq:
