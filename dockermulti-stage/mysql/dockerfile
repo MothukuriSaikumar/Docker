@@ -1,4 +1,3 @@
 FROM mysql:8.0
 COPY  db/ /docker-entrypoint-initdb.d/
-ARG MYSQL_ROOT_PASSWORD
 ENV MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
