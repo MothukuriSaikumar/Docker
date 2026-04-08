@@ -85,7 +85,7 @@ services:
     build:
       context: ./frontend
       
-    image: saikumar19/frontend:v1
+    image: saikumar19/frontend:v2
     container_name: frontend
     ports:
     - "80:80"
