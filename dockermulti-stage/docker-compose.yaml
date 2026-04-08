@@ -3,7 +3,7 @@ services:
     build: 
       context: ./catalogue
       dockerfile: Dockerfile
-    image: saikumar19/catalogue:v1
+    image: saikumar19/catalogue:v2
     container_name: catalogue
     depends_on:
     - mongodb
@@ -55,7 +55,7 @@ services:
     build:
       context: ./cart
       dockerfile: Dockerfile
-    image: saikumar19/cart:v1
+    image: saikumar19/cart:v2
     container_name: cart
     depends_on:
     - catalogue
@@ -74,7 +74,7 @@ services:
     build:
       context: ./payment
       dockerfile: Dockerfile
-    image: saikumar19/payment:v1
+    image: saikumar19/payment:v2
     container_name: payment
     depends_on:
     - user
