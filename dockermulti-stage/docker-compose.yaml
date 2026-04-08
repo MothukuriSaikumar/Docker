@@ -36,7 +36,7 @@ services:
       context: ./mysql
       dockerfile: Dockerfile
       
-    image: saikumar19/mysql:v1
+    image: saikumar19/mysql:v2
     container_name: mysql
     volumes:
       - mysql:/var/lib/mysql
@@ -64,7 +64,7 @@ services:
     build:
       context: ./shipping
       dockerfile: Dockerfile
-    image: saikumar19/shipping:v1
+    image: saikumar19/shipping:v2
     container_name: shipping
     depends_on:
     - mysql
