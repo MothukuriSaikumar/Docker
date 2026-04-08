@@ -46,7 +46,7 @@ services:
     build:
       context: ./user
       dockerfile: Dockerfile
-    image: saikumar19/user:v1
+    image: saikumar19/user:v2
     container_name: user
     depends_on:
     - mongodb
