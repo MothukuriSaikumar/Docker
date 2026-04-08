@@ -15,9 +15,9 @@ EXPOSE 8080
 LABEL com.project="RoboShop" \
       author="Saikumar19" \
       component="cart"
-ENV REDIS_HOST = "redis" \
-    CATALOGUE_HOST = "catalogue" \
-    CATALOGUE_PORT = "8080" 
+ENV REDIS_HOST="redis" \
+    CATALOGUE_HOST="catalogue" \
+    CATALOGUE_PORT="8080" 
 USER roboshop
 COPY --from=build --chown=roboshop:roboshop /opt/server /opt/server
 CMD ["server.js" ]   
