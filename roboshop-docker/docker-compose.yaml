@@ -24,12 +24,12 @@ services:
   rabbitmq:
     image: rabbitmq:3
     container_name: rabbitmq
-    
+    volumes:
+    - rabbitmq:/var/lib/rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: roboshop
       RABBITMQ_DEFAULT_PASS: roboshop123
-    volumes:
-    - rabbitmq:/var/lib/rabbitmq
+    
   
   mysql:
     build:
@@ -71,8 +71,8 @@ services:
   payment:
     build:
       context: ./payment
-      
-    image: payment:v1
+      dockerfile: Dockerfile
+    image: payment:v2
     container_name: payment
     depends_on:
     - user
