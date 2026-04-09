@@ -78,11 +78,17 @@ services:
     - user
     - cart
     - rabbitmq
+    environment:
+     AMQP_HOST: rabbitmq
+     AMQP_USER: roboshop
+     AMQP_PASSWORD: roboshop123  
+     USER_HOST: user
+     CART_HOST: cart
+    
     
   frontend:
     build:
       context: ./frontend
-      
     image: frontend:v1
     container_name: frontend
     ports:
@@ -93,6 +99,7 @@ services:
     - cart
     - shipping
     - payment
+
 networks:
   default:
     name: roboshop
