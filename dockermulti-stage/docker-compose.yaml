@@ -70,19 +70,13 @@ services:
     - cart
 
   payment:
-    build:
-      context: ./payment
-      dockerfile: Dockerfile
+    build: ./payment
     image: saikumar19/payment:v3
     container_name: payment
     depends_on:
     - rabbitmq
     - cart
     - user
-    environment:
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_USER: roboshop
-      RABBITMQ_PASSWORD: roboshop123
     
   frontend:
     build:
