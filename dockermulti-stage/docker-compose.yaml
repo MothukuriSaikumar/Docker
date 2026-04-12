@@ -80,6 +80,10 @@ services:
     - rabbitmq
     - cart
     - user
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: roboshop
+      RABBITMQ_PASSWORD: roboshop123
     
   frontend:
     build:
