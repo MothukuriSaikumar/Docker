@@ -77,6 +77,10 @@ services:
     - rabbitmq
     - cart
     - user
+    environment:
+     AMQP_HOST: rabbitmq
+     AMQP_USER: roboshop
+     AMQP_PASS: roboshop123
     
   frontend:
     build:
