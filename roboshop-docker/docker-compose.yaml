@@ -72,7 +72,7 @@ services:
     build:
       context: ./payment
       dockerfile: Dockerfile
-    image: saikumar19/payment:v3
+    image: payment:v3
     container_name: payment
     depends_on:
     - user
