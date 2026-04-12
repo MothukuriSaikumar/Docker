@@ -77,9 +77,9 @@ services:
     image: saikumar19/payment:v3
     container_name: payment
     depends_on:
-    - user
-    - cart
     - rabbitmq
+    - cart
+    - user
     
   frontend:
     build:
